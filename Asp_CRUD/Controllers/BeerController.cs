@@ -5,20 +5,24 @@ using Microsoft.Identity.Client;
 
 namespace Asp_CRUD.Controllers
 {
-    public class BrandController : Controller
-    {
-        //Data Inyect 
-        private readonly PubContext _context;
-        
+	public class BeerController : Controller
+	{
+
+		//Data Inyect 
+		private readonly PubContext _context;
+
+
         //Return Inyect(Constructor)
-        public BrandController(PubContext context)
+        public BeerController(PubContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Brands.ToListAsync());
-        }
-    }
+            var beers = _context.Beers.Include(b => b.Brand);
+            return View(await beers.ToListAsync());
+        }	
+		
+	}
 }
