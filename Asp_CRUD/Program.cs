@@ -1,7 +1,21 @@
+using Asp_CRUD.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+//Add services to the connection
+builder.Services.AddDbContext<PubContext>(parametro_option =>
+{
+    //Inyect dependences
+    parametro_option.UseSqlServer(builder.Configuration.GetConnectionString("PupContext"));
+});
+
 
 var app = builder.Build();
 
